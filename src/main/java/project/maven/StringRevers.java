@@ -1,10 +1,9 @@
 package project.maven;
 
-public class StringRevers {
-	
+public class StringRevers {	
 		  public static void main(String[] args) {
-		    String originalStr = "Hello world";
-		    String reversedStr = "";
+		    String originalStr = ("Hello world");
+		    String reversedStr = (" ");
 		    System.out.println("Original string: " + originalStr);
 		        
 		    for (int i = 0; i < originalStr.length(); i++) {
@@ -12,6 +11,7 @@ public class StringRevers {
 		    }
 		    
 		    System.out.println("Reversed string: "+ reversedStr);
+		    System.out.println("all done");
 		  }
 		}
 
