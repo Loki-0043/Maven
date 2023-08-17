@@ -2,24 +2,24 @@ package XpathAndCSS;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 
 public class Xpath {
-	WebDriver driver;
-public void FlipCakt() throws Exception {
-	ChromeOptions options = new ChromeOptions();
-	options.addArguments("--satart-maximized");
-	options.addArguments("--disable--popup");
-	driver= new ChromeDriver(options);
-		driver.get("https://www.flipkart.com/");
-		//driver.manage().window().maximize();
 	
-	
-	}
+		
 public static void main(String[] args) throws Exception {
-	Xpath p= new Xpath();
-	p.FlipCakt();
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://www.facebook.com/");
+	driver.manage().window().maximize();
+	driver.get("https://www.facebook.com/");
+	driver.findElement(By.linkText("Create new account")).click();
+    driver.findElement(By.id("u_9_b_Vl")).sendKeys("loki");
+   // driver.findElement(By.name("lastname")).sendKeys("lokesh");
+	
 }
 
 }

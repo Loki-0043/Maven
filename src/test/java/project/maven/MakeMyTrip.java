@@ -12,38 +12,78 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 public class MakeMyTrip {
-     WebDriver browser;
-     public void fromElement(String ExpectedcityName) {
-    	 ChromeOptions options = new ChromeOptions();
-    		options.addArguments("--satart-maximized");
-    		options.addArguments("--disable--popup");
-    		browser= new ChromeDriver(options);
-    	 browser.get("https://www.makemytrip.com/");
-    	 browser.manage().window().maximize();
-    	 browser.manage().timeouts().implicitlyWait(Duration.ofSeconds(60));
-    	 browser.findElement(By.xpath("//*[@class='chNavIcon appendBottom2 chSprite chFlights active']")).click();
+     WebDriver driver;
+     public void fromElement(String ExpectedcityName) throws InterruptedException {
+    	// ChromeOptions options = new ChromeOptions();
+    	//	options.addArguments("--satart-maximized");
+    		//options.addArguments("--disable--popup");
+    		driver= new EdgeDriver();
+    	 driver.get("https://www.makemytrip.com/");
+    	 driver.manage().window().maximize();
+    	// browser.manage().timeouts().implicitlyWait(Duration.ofSeconds(60));
+    //	 browser.findElement(By.xpath("//*[contains(@class,'react-autosuggest__suggestions')]")).click();
     
     	 //browser.findElement(By.className("desktop in")).click();
-    	 browser.findElement(By.xpath("//*[@id='fromCity']")).click();
-    	/*List<WebElement> city = browser.findElements(By.xpath("//*[@id='react-autowhatever-1']//li"));
-    	 for(int i=1;i<=city.size();i++) {
-    		 WebDriverWait wait = new WebDriverWait (browser, Duration.ofSeconds(60));
-    		 wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//*[@id='react-autowhatever-1']//li[last()]")));
-    		 String actualcityName = browser.findElement(By.xpath("//*[@id='react-autowhatever-1']//li["+i+"]")).getText();
-    	
-    		 if(actualcityName.equalsIgnoreCase(ExpectedcityName))
+    	 Thread.sleep(2000);
+          driver.findElement(By.xpath("//*[contains(@for,'fromCity')]")).click();
+ 		List<WebElement> fromCity = driver.findElements(By.xpath("//*[contains(@class,'autoSuggestPlugin')]//li"));
+ 	
+ 		for(int i=1;i<=fromCity.size();i++)
+ 		{
+ 			WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(60));
+ 			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@class,'autoSuggestPlugin')]//li[last()]")));
+ 			String actualCity = driver.findElement(By.xpath("//*[contains(@class,'autoSuggestPlugin')]//li["+i+"]")).getText();
+ 			
+ 			if(actualCity.trim().contains(ExpectedcityName))
  			{
- 			browser.findElement(By.xpath("//*[@id='react-autowhatever-1']//li["+i+"]")).click();
- 			break;
- 			}}*/
-    	 
+ 				driver.findElement(By.xpath("//*[contains(@class,'autoSuggestPlugin')]//li["+i+"]")).click();
+ 				break;
+ 				
+ 			}}   
+ 		}
+     public void ToElement(String ExpectedToName) throws InterruptedException {
+     Thread.sleep(2000);
+     driver.findElement(By.xpath("//*[contains(@for,'toCity')]")).click();
+	List<WebElement> fromCity = driver.findElements(By.xpath("//*[contains(@class,'autoSuggestPlugin hsw_autocomplePopup')]//li"));
+
+	for(int i=1;i<=fromCity.size();i++)
+	{
+		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(60));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@class,'autoSuggestPlugin hsw_autocomplePopup')]//li[last()]")));
+		String actualCity = driver.findElement(By.xpath("//*[contains(@class,'autoSuggestPlugin hsw_autocomplePopup')]//li["+i+"]")).getText();
+		
+		if(actualCity.trim().contains(ExpectedToName))
+		{
+			driver.findElement(By.xpath("//*[contains(@class,'autoSuggestPlugin hsw_autocomplePopup')]//li["+i+"]")).click();
+			break;
+			
+		}}   
+	}
+     public void dayElement(String ExpectedDate) throws InterruptedException {
+         Thread.sleep(2000);
+         driver.findElement(By.xpath("//*[text()='Departure']")).click();
+         driver.findElement(By.xpath("//*[@class='DayPicker-Day'][contains(@aria-label,'Fri Sep 01 2023')]")).click();    	/*List<WebElement> fromCity = driver.findElements(By.xpath("//*[@class='DayPicker-Months']//li"));
+    	for(int i=1;i<=fromCity.size();i++)
+    	{
+    		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(60));
+    		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@class,'autoSuggestPlugin hsw_autocomplePopup')]//li[last()]")));
+    		String actualCity = driver.findElement(By.xpath("//*[contains(@class,'autoSuggestPlugin hsw_autocomplePopup')]//li["+i+"]")).getText();
+    		
+    		if(actualCity.trim().contains(ExpectedDate))
+    		{
+    			driver.findElement(By.xpath("//*[contains(@class,'autoSuggestPlugin hsw_autocomplePopup')]//li["+i+"]")).click();
+    			break;
+    			
+    		}}   
+    	}*/
      }
-     
-	public static void main(String[] args) {
+         
+	public static void main(String[] args) throws InterruptedException {
 		
 		MakeMyTrip mt =new MakeMyTrip();
-		mt.fromElement("New Delhi, India");
-		
+		//mt.fromElement("Hyderabad, India");
+		//mt.ToElement("Bangkok, Thailand");
+		mt.dayElement("");
 	}
 
 }
